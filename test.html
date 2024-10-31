@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO WebSocket Test</title>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Socket.IO WebSocket Test</h1>
+    <div id="notifications"></div>
+    <script>
+        const socket = io("http://localhost:3000");
+
+        socket.on("connect", () => {
+            console.log("Connected to server!");
+
+            // Listen for taskUpdated notifications
+            socket.on("taskUpdated", (data) => {
+                console.log("Task updated notification:", data);
+                const notificationsDiv = document.getElementById("notifications");
+                notificationsDiv.innerHTML += `<p>${data.message}</p>`;
+            });
+
+            socket.on("commentAdded", (data) => {
+                console.log("Comment Added notification:", data);
+                const notificationsDiv = document.getElementById("notifications");
+                notificationsDiv.innerHTML += `<p>${data.message}</p>`;
+            });
+
+            socket.on("attachmentAdded", (data) => {
+                console.log("Attachment Added notification:", data);
+                const notificationsDiv = document.getElementById("notifications");
+                notificationsDiv.innerHTML += `<p>${data.message}</p>`;
+            });
+        });
+
+        socket.on("disconnect", () => {
+            console.log("Disconnected from server");
+        });
+    </script>
+</body>
+</html>
