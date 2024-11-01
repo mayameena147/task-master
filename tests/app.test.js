@@ -1,7 +1,6 @@
-// tests/app.test.js
 const request = require("supertest");
 const mongoose = require("mongoose");
-const app = require("../app"); // Express app
+const app = require("../app");
 
 // Mock Data
 const userData = { email: "test@example.com", password: "password123", username: "Test User" };
@@ -16,7 +15,6 @@ afterAll(async () => {
     await mongoose.connection.close();
 });
 
-// Test for each user story
 describe("User Account and Task Management", () => {
     // 1. Create a new account
     it("should create a new user account", async () => {
@@ -61,7 +59,6 @@ describe("User Account and Task Management", () => {
 
     // 6. Mark a task as completed
     it("should mark a task as completed", async () => {
-        console.log("jest taskId:" +  taskId);
         const res = await request(app).put(`/tasks/${taskId}/complete`).set("Authorization", `Bearer ${authToken}`);
         expect(res.statusCode).toBe(201);
         expect(res.body.task.status).toBe("completed");

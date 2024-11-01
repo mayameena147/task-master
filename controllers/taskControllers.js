@@ -130,10 +130,8 @@ const addAttachmentOnTask = async (req, res) => {
 };
 
 const markTaskAsCompleted = async (req, res) => {
-    console.log("request reached endpoint");
     try {
         const taskId = req.params.id;
-        console.log("taskId: "+ taskId);
         const task = await Task.findByIdAndUpdate(
             taskId,
             { status: 'completed' },
