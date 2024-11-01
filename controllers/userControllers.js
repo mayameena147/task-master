@@ -32,13 +32,12 @@ async function loginUser(req, res) {
 
 const getUserProfile = async (req, res) => {
   try {
-    console.log(req.user);
     const user = await User.findById(req.userId).select("-password");
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json(user);
+    res.status(200).json({user: user});
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
@@ -59,7 +58,7 @@ const updateUserProfile = async (req, res) => {
       { new: true, runValidators: true }
     ).select("-password");
 
-    res.status(200).json(updatedUser);
+    res.status(200).json({user: updatedUser});
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

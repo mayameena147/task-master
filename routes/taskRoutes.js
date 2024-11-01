@@ -1,5 +1,6 @@
 const express = require("express");
-const { createTask, getTasks, updateTask, deleteTask, assignTask, addCommentOnTask, addAttachmentOnTask } = require("../controllers/taskControllers");
+const { createTask, getTasks, updateTask, deleteTask, 
+assignTask, addCommentOnTask, addAttachmentOnTask, markTaskAsCompleted } = require("../controllers/taskControllers");
 const authMiddleware = require("../middlewares/auth");
 
 const router = express.Router();
@@ -11,5 +12,6 @@ router.delete("/:id", authMiddleware, deleteTask);
 router.post("/:id/comment", authMiddleware, addCommentOnTask);
 router.post("/:id/attachment", authMiddleware, addAttachmentOnTask);
 router.put("/:taskId/:assignedUserId", authMiddleware, assignTask);
+router.put("/:id/complete", authMiddleware, markTaskAsCompleted);
 
 module.exports = router;

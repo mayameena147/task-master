@@ -1,11 +1,12 @@
 const express = require("express");
 const http = require("http");
 const userRouter = require("./routes/userRoutes");
+const taskRouter = require("./routes/taskRoutes");
+const teamRouter = require("./routes/teamRoutes");
 const app = express();
 const server = http.createServer(app);
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const taskRouter = require("./routes/taskRoutes");
 const socketIo = require("socket.io");
 const PORT = 3000;
 
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 
 app.use('/users', userRouter);
 app.use('/tasks', taskRouter);
+app.use('/teams', teamRouter);
 
 server.listen(PORT, ()=> {
     console.log("server is listening on PORT: " + PORT);
